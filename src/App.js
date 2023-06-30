@@ -1,24 +1,55 @@
-import logo from './logo.svg';
 import './App.css';
+import React,{useState} from 'react';
+import Sidebar from './components/Navbar';
+import Addform from './components/Addform';
+import EditUser from './components/EditUser';
+import Showuser from './components/Showuser';
+import { Route, Routes } from 'react-router-dom';
+export const StudentContext = React.createContext();
 
 function App() {
+  let [students,setStudents] = useState([
+    {
+      name:"kavin",
+      email:"kavin@gmail.com",
+      mobile:"1231231231",
+      sessionTime:"10am to 12pm",
+      batch:"CSE"
+    },
+    {
+      name:"Pradeep",
+      email:"pradep@gmail.com",
+      mobile:"9087654879",
+      sessionTime:"10am to 12pm",
+      batch:"ECE"
+    },
+    {
+      name:"kumar",
+      email:"kumar@gmail.com",
+      mobile:"9032435654",
+      sessionTime:"10am to 12pm",
+      batch:"EEE"
+    },
+    {
+      name:"ganesh",
+      email:"ganesh@gmail.com",
+      mobile:"9092328754",
+      sessionTime:"10am to 12pm",
+      batch:"IT"
+    },
+  ])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    
+     <Sidebar/>
+     <StudentContext.Provider value={{students,setStudents}}>
+     <Routes>
+     <Route path='/showuser' element={<Showuser/>}/>
+      <Route path='/adduser' element={<Addform/>}  />
+      <Route path='/edituser/:id' element={<EditUser/>}/>
+     </Routes>
+     </StudentContext.Provider>
+    </>
   );
 }
 
